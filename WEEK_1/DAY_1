@@ -1,1 +1,56 @@
+Program for two sum: 
+
+class Solution {
+public:
+		vector<int> twoSum(vector<int>& nums,int target) {
+				for(int i=0;i<nums.size();i++) {
+						for (int j=i+1; j<nums.size();j++) {
+								if(nums[i] + nums[j] == target) {
+										return{i,j};
+								}
+						}
+				}
+				return {};
+		}
+};
+
+Program for best time to buy and sell stock
+
+class Solution {
+public:
+		int maxProfit(vector<int>& prices) {
+				int minPrice = INT_MAX;
+				int maxProfit = 0;
+
+				for(int price : prices) {
+						minPrice = min(minPrice,price);
+						maxProfit = max(maxProfit,price-minPrice);
+				
+        }
+				return maxProfit;
+		}
+};
+
+
+Program for remove duplicates from sorted array
+
+class Solution {
+public: 
+		int removeDuplicates(vector<int>& nums) {
+				if(nums.size() == 0)
+						return 0;
+
+				int j=0;
+				for(int i=1;i<nums.size();i++) {
+						if(nums[i] != nums[j]) {
+								j++;
+								nums[j] = nums[i];
+						}
+				}
+				return j+1;
+		}
+};
+
+
+
 
