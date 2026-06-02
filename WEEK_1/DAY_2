@@ -1,0 +1,56 @@
+Program for Maximum Subarray:
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int currentSum = nums[0];
+        int maxSum = nums[0];
+
+        for (int i = 1; i < nums.size(); i++) {
+            currentSum = max(nums[i], currentSum + nums[i]);
+            maxSum = max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+};
+
+Program for Contains Duplicate:
+
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> seen;
+
+        for (int num : nums) {
+            if (seen.count(num)) {
+                return true;
+            }
+            seen.insert(num);
+        }
+
+        return false;
+    }
+};
+
+Program for Maximum Average Subarray:
+
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        long long windowSum = 0;
+
+        for (int i = 0; i < k; i++) {
+            windowSum += nums[i];
+        }
+
+        long long maxSum = windowSum;
+
+        for (int i = k; i < nums.size(); i++) {
+            windowSum += nums[i] - nums[i - k];
+            maxSum = max(maxSum, windowSum);
+        }
+
+        return (double)maxSum / k;
+    }
+};
