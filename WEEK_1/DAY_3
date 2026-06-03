@@ -1,0 +1,62 @@
+Program for move zeroes:
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int index = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != 0) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        while (index < nums.size()) {
+            nums[index] = 0;
+            index++;
+        }
+    }
+};
+
+Program for Squares of a sorted array:
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++) {
+            nums[i] = nums[i] * nums[i];
+        }
+
+        sort(nums.begin(), nums.end());
+
+        return nums;
+    }
+};
+
+Program for container with most water:
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int left = 0;
+        int right = height.size() - 1;
+
+        int maxWater = 0;
+
+        while (left < right) {
+            int width = right - left;
+            int h = min(height[left], height[right]);
+
+            int area = width * h;
+            maxWater = max(maxWater, area);
+
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxWater;
+    }
+};
