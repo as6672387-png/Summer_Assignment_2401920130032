@@ -1,0 +1,109 @@
+Program for Longest Substring Without Repeating Characters:
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+         unordered_map<char, int> lastSeen;
+
+        int left = 0;
+        int maxLength = 0;
+
+        for (int right = 0; right < s.size(); right++) {
+            char currentChar = s[right];
+
+            if (lastSeen.count(currentChar) &&
+                lastSeen[currentChar] >= left) {
+                left = lastSeen[currentChar] + 1;
+            }
+
+            lastSeen[currentChar] = right;
+
+            maxLength = max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+
+};
+
+Program for Permutation in String:
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        int n = s1.size();
+        int m = s2.size();
+
+        if (n > m) {
+            return false;
+        }
+
+        vector<int> need(26, 0);
+        vector<int> window(26, 0);
+
+        for (char ch : s1) {
+            need[ch - 'a']++;
+        }
+         for (int i = 0; i < n; i++) {
+            window[s2[i] - 'a']++;
+        }
+
+        if (need == window) {
+            return true;
+        }
+        for (int right = n; right < m; right++) {
+            window[s2[right] - 'a']++;
+
+            int left = right - n;
+            window[s2[left] - 'a']--;
+
+            if (need == window) {
+                return true;
+            }
+        }
+
+        return false;
+        
+    }
+};
+
+Program for Find all Anagrams in a String:
+
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        vector<int> answer;
+
+        int n = s.size();
+        int m = p.size();
+
+        if (m > n) {
+            return answer;
+        }
+
+        vector<int> need(26, 0);
+        vector<int> window(26, 0);
+        for (char ch : p) {
+            need[ch - 'a']++;
+        }
+
+        for (int i = 0; i < m; i++) {
+            window[s[i] - 'a']++;
+        }
+
+        if (window == need) {
+            answer.push_back(0);
+        }
+        for (int right = m; right < n; right++) {
+            window[s[right] - 'a']++;
+            window[s[right - m] - 'a']--;
+
+            if (window == need) {
+                answer.push_back(right - m + 1);
+            }
+        }
+
+        return answer;
+ 
+    }
+};
