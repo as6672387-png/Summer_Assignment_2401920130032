@@ -1,0 +1,87 @@
+Program for Reverse words in a string III:
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        int n = s.size();
+        int start = 0;
+
+        for (int i = 0; i <= n; i++) {
+            if (i == n || s[i] == ' ') {
+                reverse(s.begin() + start, s.begin() + i);
+                start = i + 1;
+            }
+        }
+        return s;
+        
+    }
+};
+
+Program for Decode String:
+
+class Solution {
+public:
+    string decodeString(string s) {
+        stack<pair<string, int>> st;
+
+        string currentString;
+        int currentNumber = 0;
+
+        for (char ch : s) {
+            if (isdigit(ch)) {
+                currentNumber = currentNumber * 10 + (ch - '0');
+            }
+            else if (ch == '[') {
+                st.push({currentString, currentNumber});
+
+                currentString = "";
+                currentNumber = 0;
+            }
+            else if (ch == ']') {
+                auto [previousString, repeatCount] = st.top();
+                st.pop();
+
+                string expanded = previousString;
+
+                while (repeatCount--) {
+                    expanded += currentString;
+                }
+
+                currentString = expanded;
+            }
+            else {
+                currentString += ch;
+            }
+        }
+        
+        return currentString;
+        
+    }
+};
+
+Program for Generate Parentheses:
+
+class Solution {
+public:
+    vector<string> result;
+
+    void generate(string current, int open, int close, int n) {
+        if (current.length() == 2 * n) {
+            result.push_back(current);
+            return;
+        }
+
+        if (open < n) {
+            generate(current + '(', open + 1, close, n);
+        }
+         if (close < open) {
+            generate(current + ')', open, close + 1, n);
+        }
+    }
+
+    vector<string> generateParenthesis(int n) {
+         generate("", 0, 0, n);
+        return result;
+        
+    }
+};
