@@ -1,0 +1,79 @@
+Program for Linked List Cycle:
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+         ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+        
+    }
+};
+
+Program for Reverse Linked List:
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+         ListNode* prev = nullptr;
+        ListNode* curr = head;
+
+        while (curr != nullptr) {
+            ListNode* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+
+        return prev;
+        
+    }
+};
+Program for Palindrome Linked List:
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        ListNode* prev = nullptr;
+
+        while (slow != nullptr) {
+            ListNode* nextNode = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+        ListNode* first = head;
+        ListNode* second = prev;
+
+         while (second != nullptr) {
+            if (first->val != second->val) {
+                return false;
+            }
+
+            first = first->next;
+            second = second->next;
+        }
+
+        return true;
+        
+    }
+};
