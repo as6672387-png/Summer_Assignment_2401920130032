@@ -28,7 +28,7 @@ public:
             slow = nextNode;
         }
 
-         ListNode* first = head;
+        ListNode* first = head;
         ListNode* second = prev;
 
         while (second != nullptr) {
