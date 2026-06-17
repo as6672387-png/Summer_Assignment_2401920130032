@@ -1,0 +1,96 @@
+Program for Merge Two Sorted Lists:
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+         ListNode dummy(0);
+        ListNode* tail = &dummy;
+
+        while (list1 != nullptr && list2 != nullptr) {
+            if (list1->val <= list2->val) {
+                tail->next = list1;
+                list1 = list1->next;
+            } else {
+                tail->next = list2;
+                list2 = list2->next;
+            }
+
+            tail = tail->next;
+        }
+
+        if (list1 != nullptr) {
+            tail->next = list1;
+        } else {
+            tail->next = list2;
+        }
+
+        return dummy.next;
+        
+    }
+};
+
+Program for Remove Nth Node From End of the List:
+
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+         ListNode dummy(0);
+        dummy.next = head;
+
+        ListNode* fast = &dummy;
+        ListNode* slow = &dummy;
+
+        for (int i = 0; i <= n; i++) {
+            fast = fast->next;
+        }
+
+        while (fast != nullptr) {
+            fast = fast->next;
+            slow = slow->next;
+        }
+
+         slow->next = slow->next->next;
+
+        return dummy.next;
+        
+    }
+};
+
+Program for Palindrome Linked List:
+
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        ListNode* prev = nullptr;
+
+        while (slow != nullptr) {
+            ListNode* nextNode = slow->next;
+            slow->next = prev;
+            prev = slow;
+            slow = nextNode;
+        }
+
+        ListNode* first = head;
+        ListNode* second = prev;
+
+        while (second != nullptr) {
+            if (first->val != second->val) {
+                return false;
+            }
+
+            first = first->next;
+            second = second->next;
+        }
+
+        return true;
+        
+    }
+};
