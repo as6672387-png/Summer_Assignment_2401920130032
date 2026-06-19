@@ -1,0 +1,100 @@
+Program for Valid Parentheses:
+
+class Solution {
+public:
+    bool isValid(string s) {
+         stack<char> st;
+
+        for (char ch : s) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                st.push(ch);
+            } else {
+                if (st.empty()) {
+                    return false;
+                }
+
+                char topBracket = st.top();
+                st.pop();
+
+                if ((ch == ')' && topBracket != '(') ||
+                    (ch == '}' && topBracket != '{') ||
+                    (ch == ']' && topBracket != '[')) {
+                    return false;
+                }
+            }
+        }
+
+        return st.empty();
+        
+    }
+};
+
+Program for Min Stack:
+
+class MinStack {
+private:
+    stack<int> st;
+    stack<int> minSt;
+
+public:
+    MinStack() {
+    }
+
+    void push(int val) {
+        st.push(val);
+
+        if (minSt.empty() || val <= minSt.top()) {
+            minSt.push(val);
+        }
+    }
+
+    void pop() {
+        if (st.top() == minSt.top()) {
+            minSt.pop();
+        }
+
+        st.pop();
+    }
+
+    int top() {
+        return st.top();
+     }
+
+    int getMin() {
+        return minSt.top();
+    
+        
+    }
+};
+
+Program for Next Greater Element I:
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int, int> nextGreater;
+        stack<int> st;
+
+        for (int num : nums2) {
+            while (!st.empty() && st.top() < num) {
+                nextGreater[st.top()] = num;
+                st.pop();
+            }
+            st.push(num);
+        }
+
+        while (!st.empty()) {
+            nextGreater[st.top()] = -1;
+            st.pop();
+        }
+
+        vector<int> ans;
+
+        for (int num : nums1) {
+            ans.push_back(nextGreater[num]);
+        }
+
+        return ans;
+        
+    }
+};
