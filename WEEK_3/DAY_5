@@ -1,0 +1,90 @@
+Program for Implement Queue Using Stacks:
+
+class MyQueue {
+private:
+    stack<int> input;
+    stack<int> output;
+
+    void transfer() {
+        if (output.empty()) {
+            while (!input.empty()) {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+    }
+
+public:
+    MyQueue() {
+    }
+
+    void push(int x) {
+        input.push(x);
+    }
+    
+     int pop() {
+        transfer();
+        int val = output.top();
+        output.pop();
+        return val;
+    }
+
+    int peek() {
+        transfer();
+        return output.top();
+    }
+
+    bool empty() {
+        return input.empty() && output.empty();
+    }
+};
+
+Program for Number of Recent Calls:
+
+class RecentCounter {
+private:
+    queue<int> q;
+
+public:
+    RecentCounter() {
+    }
+
+    int ping(int t) {
+        q.push(t);
+
+        while (!q.empty() && q.front() < t - 3000) {
+            q.pop();
+        }
+
+        return q.size();
+    }
+};
+
+Program for Sliding Window Maximum:
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<int> dq;
+        vector<int> ans;
+
+        for (int i = 0; i < nums.size(); i++) {
+            while (!dq.empty() && dq.front() <= i - k) {
+                dq.pop_front();
+            }
+
+            while (!dq.empty() && nums[dq.back()] <= nums[i]) {
+                dq.pop_back();
+            }
+
+            dq.push_back(i);
+
+            if (i >= k - 1) {
+                ans.push_back(nums[dq.front()]);
+            }
+        }
+
+        return ans;
+    }
+};
+
