@@ -1,0 +1,61 @@
+Program for Search in a Binary Search Tree:
+
+class Solution {
+public:
+    TreeNode* searchBST(TreeNode* root, int val) {
+        while (root != nullptr) {
+            if (root->val == val) {
+                return root;
+            }
+
+            if (val < root->val) {
+                root = root->left;
+            } else {
+                root = root->right;
+            }
+        }
+
+        return nullptr;
+    }
+};
+
+Program for Validate Binary Search Tree:
+
+class Solution {
+public:
+    bool check(TreeNode* root, long long low, long long high) {
+        if (root == nullptr) {
+            return true;
+        }
+
+        if (root->val <= low || root->val >= high) {
+            return false;
+        }
+
+        return check(root->left, low, root->val) &&
+               check(root->right, root->val, high);
+    }
+
+    bool isValidBST(TreeNode* root) {
+        return check(root, LLONG_MIN, LLONG_MAX);
+    }
+};
+
+Program for Lowest Common Ancestor of a Binary Search Tree:
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        while (root != nullptr) {
+            if (p->val < root->val && q->val < root->val) {
+                root = root->left;
+            } else if (p->val > root->val && q->val > root->val) {
+                root = root->right;
+            } else {
+                return root;
+            }
+        }
+
+        return nullptr;
+    }
+};
